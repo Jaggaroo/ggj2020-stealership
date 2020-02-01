@@ -39,15 +39,15 @@ public class loadScene : MonoBehaviour
         float prefabWidth = bounds.x;
         float prefabHeight = bounds.y;
 
-        float x = Random.Range(minX + prefabWidth / 2, maxX - prefabWidth / 2);
-        float y = levelsTopPos[Mathf.RoundToInt(Random.Range(0f, 1f))] - prefabHeight / 2;
+        float x = Random.Range(minX + prefabWidth, maxX - prefabWidth);
+        float y = levelsTopPos[Mathf.RoundToInt(Random.Range(0f, 1f))] - prefabHeight;
 
         Vector3 pos = new Vector3(x, y, transform.position.z);
 
         // Debug.Log("HW " + height + " " + width);
         // Debug.Log("X span " + (bottomLeftEdgeVector.x + prefabWidth / 2) + " " + topRightEdgeVector.x);
         // Debug.Log("Random pos init " + x + " " + y);
-        Debug.Log("Random pos toWorld " + pos.x + " " + pos.y + " " + pos.z);
+        Debug.Log("Random pos toWorld " + pos.x + " " + pos.y + " " + pos.z + " " + prefabHeight + " " + prefabWidth);
         // Debug.Log(pos.x);
         // Debug.Log(pos.y);
 
