@@ -15,8 +15,10 @@ public class char1move : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(playerNum);
-        Debug.Log(screenBounds);
+        Debug.Log("Player: " + playerNum);
+        //Debug.Log(screenBounds);
+        Debug.Log("Width: " + Screen.width);
+        Debug.Log("Height: " + Screen.height);
     }
 
     // Update is called once per frame
