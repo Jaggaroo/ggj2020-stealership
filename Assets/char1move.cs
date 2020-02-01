@@ -25,9 +25,9 @@ public class char1move : MonoBehaviour
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
 
-        Debug.Log("Screenbounds: " + screenBounds);
-        Debug.Log("Update Width: " + Screen.width);
-        Debug.Log("Update Height: " + Screen.height);
+        // Debug.Log("Screenbounds: " + screenBounds);
+        // Debug.Log("Update Width: " + Screen.width);
+        // Debug.Log("Update Height: " + Screen.height);
 
     }
 
@@ -49,10 +49,10 @@ public class char1move : MonoBehaviour
         //playerpositionX = transform.localPosition.x;
         //playerpositionY = transform.localPosition.y;
 
-        Debug.Log("Update Player: " + playerNum);
-        Debug.Log("dir: " + dir);
-        Debug.Log("Player 0 X: " + playerpositionX);
-        Debug.Log("Player 0 Y: " + playerpositionY);
+        // Debug.Log("Update Player: " + playerNum);
+        // Debug.Log("dir: " + dir);
+        // Debug.Log("Player 0 X: " + playerpositionX);
+        // Debug.Log("Player 0 Y: " + playerpositionY);
 
         if (playerpositionX > 39f && playerpositionY > 1f)
         {
