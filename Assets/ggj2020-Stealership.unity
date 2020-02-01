@@ -266,10 +266,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   playerNum: 1
-  player0positionX: 0
-  player1positionX: 0
-  player0positionY: 0
-  player1positionY: 0
+  playerpositionX: 0
+  playerpositionY: 0
   topGround: 2.53279
   bottomGround: -19.81625
 --- !u!1 &519420028
@@ -367,6 +365,7 @@ GameObject:
   - component: {fileID: 623668680}
   - component: {fileID: 623668679}
   - component: {fileID: 623668682}
+  - component: {fileID: 623668683}
   m_Layer: 0
   m_Name: BackGround
   m_TagString: Background
@@ -489,6 +488,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 80, y: 2.5095482}
   m_EdgeRadius: 0
+--- !u!114 &623668683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623668678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6292b8320049be12d95b7be8a287cb7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topColliderBottomPos: 1
 --- !u!1001 &1260129803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -640,9 +652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   playerNum: 0
-  player0positionX: 0
-  player1positionX: 0
-  player0positionY: 0
-  player1positionY: 0
+  playerpositionX: 0
+  playerpositionY: 0
   topGround: 2.53279
   bottomGround: -19.81625
