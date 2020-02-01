@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Background
   - Character1
+  - catman
   layers:
   - Default
   - TransparentFX

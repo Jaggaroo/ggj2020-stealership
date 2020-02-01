@@ -5,15 +5,15 @@ using UnityEngine;
 public class char1move : MonoBehaviour
 {
     Vector3 movement;
-    public float moveSpeed = 500f;
+    private float moveSpeed = 5f;
 
     public int playerNum;
 
     public float playerpositionX;
     public float playerpositionY;
 
-    public float topGround = 2.53279f;
-    public float bottomGround = -19.81625f;
+    private float topGround = 6.23279f;
+    private float bottomGround = -16.31625f;
 
     Vector2 screenBounds;
     Vector2 screenOrigo;
@@ -43,10 +43,11 @@ public class char1move : MonoBehaviour
             dir = Input.GetAxis("HorizontalB");
 
         }
+        playerpositionX = transform.position.x;
+        playerpositionY = transform.position.y;
 
-
-        playerpositionX = transform.localPosition.x;
-        playerpositionY = transform.localPosition.y;
+        //playerpositionX = transform.localPosition.x;
+        //playerpositionY = transform.localPosition.y;
 
         Debug.Log("Update Player: " + playerNum);
         Debug.Log("dir: " + dir);
