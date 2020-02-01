@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class char1move : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 1000f;
 
     public int playerNum;
 
@@ -20,8 +20,8 @@ public class char1move : MonoBehaviour
         Debug.Log("Width: " + Screen.width);
         Debug.Log("Height: " + Screen.height);
 
-        Vector2 screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-        Vector2 screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
 
         Debug.Log(screenBounds);
 
@@ -37,7 +37,7 @@ public class char1move : MonoBehaviour
             dir = Input.GetAxis("HorizontalB");
         }
 
-        Vector3 movement = new Vector3(dir, 0f, 0f);
+        Vector3 movement = new Vector3(dir * moveSpeed, 0f, 0f);
         transform.position += movement * Time.deltaTime * moveSpeed;
 
         //Vector3 pos = transform.position;
