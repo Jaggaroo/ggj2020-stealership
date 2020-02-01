@@ -53,23 +53,23 @@ public class char1move : MonoBehaviour
         // Debug.Log("Player 0 X: " + playerpositionX);
         // Debug.Log("Player 0 Y: " + playerpositionY);
 
-        if (playerpositionX > 38f && playerpositionY > 1f)
+        if (playerpositionX > 39f && playerpositionY > 1f)
         {
-            transform.position = new Vector3(-38f, bottomGround, 0);
+            transform.position = new Vector3(-39f, bottomGround, 0);
 
         }
-        else if (playerpositionX > 38f && playerpositionY < 1f)
+        else if (playerpositionX > 39f && playerpositionY < 1f)
         {
-            transform.position = new Vector3(-38f, topGround, 0);
+            transform.position = new Vector3(-39f, topGround, 0);
 
-        }else if (playerpositionX < -38f && playerpositionY > 1f)
+        }else if (playerpositionX < -39f && playerpositionY > 1f)
         {
-            transform.position = new Vector3(38f, bottomGround, 0);
+            transform.position = new Vector3(39f, bottomGround, 0);
 
         }
-        else if (playerpositionX < -38f && playerpositionY < 1f)
+        else if (playerpositionX < -39f && playerpositionY < 1f)
         {
-            transform.position = new Vector3(38f, topGround, 0);
+            transform.position = new Vector3(39f, topGround, 0);
 
         }
 
