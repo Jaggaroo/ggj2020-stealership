@@ -7,6 +7,7 @@ TagManager:
   - Background
   - Character1
   - catman
+  - eyeguy
   layers:
   - Default
   - TransparentFX
