@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3830431111202832127}
   - component: {fileID: 4766611400531698819}
   - component: {fileID: 4915258510617813256}
+  - component: {fileID: 2487202062909167745}
   m_Layer: 0
   m_Name: BlackRocket
   m_TagString: Untagged
@@ -80,6 +81,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.7092752, y: 8.877899}
   m_EdgeRadius: 0
+--- !u!114 &2487202062909167745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248600772912057580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d6cf0b4e041456f8d09ef8409a9238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeCombinedWith: []
 --- !u!1 &2618836076485260875
 GameObject:
   m_ObjectHideFlags: 0

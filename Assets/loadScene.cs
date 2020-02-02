@@ -26,12 +26,12 @@ public class loadScene : MonoBehaviour
         Object[] prefabs =
             Resources.LoadAll("Parts");
 
-        Debug.Log("Parts count " + prefabs.Length)    ;
+        // Debug.Log("Parts count " + prefabs.Length)    ;
 
         foreach (GameObject _prefab in prefabs) {
             GameObject prefab = (GameObject) _prefab;
             
-            Debug.Log("Prefab " + prefab);
+            // Debug.Log("Prefab " + prefab);
             SpawnPart(prefab, bottomLeftEdgeVector.x, topRightEdgeVector.x);
         }
     }
@@ -43,7 +43,7 @@ public class loadScene : MonoBehaviour
         float prefabWidth = bounds.x;
         float prefabHeight = bounds.y;
 
-        Debug.Log("Prefab size " + prefabWidth + " " + prefabHeight);
+        // Debug.Log("Prefab size " + prefabWidth + " " + prefabHeight);
 
         float x = Random.Range(minX + prefabWidth, maxX - prefabWidth);
         float y = levelsTopPos[Mathf.RoundToInt(Random.Range(0f, 1f))] - prefabHeight;

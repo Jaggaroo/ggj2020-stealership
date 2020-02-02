@@ -45,6 +45,9 @@ public class charMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (pickedUpObj != null) {
+            Debug.Log("Combinable " + pickedUpObj.GetComponent<Combinable>().IsCombined());
+        }
         RegisterPickDrop();
 
         Move();

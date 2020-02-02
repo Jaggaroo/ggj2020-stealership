@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class combinable : MonoBehaviour
+public class Combinable : MonoBehaviour
 {
+    public GameObject[] canBeCombinedWith;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,9 @@ public class combinable : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool IsCombined() {
+        return true;
     }
 }
