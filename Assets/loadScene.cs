@@ -55,6 +55,7 @@ public class loadScene : MonoBehaviour
         // Debug.Log(pos.y);
 
         GameObject inst = Instantiate(prefab, pos, Quaternion.identity);
+        inst.tag = "part";
         Rigidbody2D rb = inst.GetComponent<Rigidbody2D>();
         float tDir = Mathf.Ceil(Random.Range(0, 1)) * 2 - 1;
 

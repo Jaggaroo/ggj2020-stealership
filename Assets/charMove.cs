@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class charMove : MonoBehaviour
 {
-    Vector3 movement;
+    public float throwForceY = 7;
+    public float throwForceX = 3;
+
+    private float movementDir = 0;
     private float moveSpeed = 5f;
 
     public int playerNum;
@@ -15,10 +18,14 @@ public class charMove : MonoBehaviour
     private float topGround = 6.23279f;
     private float bottomGround = -16.31625f;
 
-    Vector2 screenBounds;
-    Vector2 screenOrigo;
+    private Vector2 screenBounds;
+    private Vector2 screenOrigo;
 
-    // Start is called before the first frame update
+    private GameObject pickedUpObj;
+    private GameObject lastPickedUpObj;
+    private bool pickupButton;
+    private bool canPickUp = true;
+
     void Start()
     {
 
@@ -34,24 +41,75 @@ public class charMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        pickupButton = Input.GetButton("Fire1");
+
         Move();
+        DragPickedObj();
+        DropPickedObj();
     }
 
-    void OnCollisionEnter(Collision collision) {
+    void OnCollisionStay2D(Collision2D collision) {
         PickUp(collision);
     }
 
-    void PickUp(Collision collision) {
-        Debug.Log("Collision " + collision.gameObject.tag);
+    void OnCollisionExit2D(Collision2D collision) {
+        if (collision.gameObject == lastPickedUpObj) {
+            canPickUp = true;
+            Debug.Log("Can pick up");
+        }
+    }
+
+    void PickUp(Collision2D collision) {
+        // Debug.Log("Collision " + collision.gameObject.tag);
+        if (collision.gameObject.tag == "part" && canPickUp && pickupButton) {
+            canPickUp = false;
+            pickupButton = false;
+
+            Debug.Log("PickUp");
+            pickedUpObj = collision.gameObject;
+            Collider2D pCol = pickedUpObj.GetComponent<Collider2D>();
+            pCol.enabled = false;
+            pickedUpObj.transform.position += new Vector3(0, 2, 0);
+        }
+    }
+
+    void DragPickedObj() {
+        if (pickedUpObj != null) {
+            Vector3 objPos = pickedUpObj.transform.position;
+            Vector3 charPos = transform.position;
+            objPos = new Vector3(charPos.x - 1, charPos.y + 2, objPos.z);
+            pickedUpObj.transform.position = objPos;
+        }
+    }
+
+    void DropPickedObj() {
+        if (pickedUpObj != null) {
+            if (pickupButton) {
+                pickupButton = false;
+                lastPickedUpObj = pickedUpObj;
+
+                Debug.Log("Drop");
+                GameObject toThrow = pickedUpObj;
+
+                Rigidbody2D rb = toThrow.GetComponent<Rigidbody2D>();
+                float throwDir = Mathf.Sign(movementDir) * -1;
+                rb.AddForce(new Vector2(Random.Range(0, throwForceX) * throwDir, throwForceY), ForceMode2D.Impulse);
+
+                pickedUpObj = null;
+                
+                Collider2D pCol = toThrow.GetComponent<Collider2D>();
+                pCol.enabled = true;
+            }
+        }
     }
 
     void Move() {
-        float dir = 0;
+        float movementDir = 0;
         if (playerNum == 0) {
-            dir = Input.GetAxis("Horizontal");
+            movementDir = Input.GetAxis("Horizontal");
 
         } else {
-            dir = Input.GetAxis("HorizontalB");
+            movementDir = Input.GetAxis("HorizontalB");
 
         }
         playerpositionX = transform.position.x;
@@ -65,27 +123,27 @@ public class charMove : MonoBehaviour
         // Debug.Log("Player 0 X: " + playerpositionX);
         // Debug.Log("Player 0 Y: " + playerpositionY);
 
-        if (playerpositionX > 39f && playerpositionY > 1f)
+        if (playerpositionX > 37f && playerpositionY > 1f)
         {
-            transform.position = new Vector3(-39f, bottomGround, 0);
+            transform.position = new Vector3(-37f, bottomGround, 0);
 
         }
-        else if (playerpositionX > 39f && playerpositionY < 1f)
+        else if (playerpositionX > 37f && playerpositionY < 1f)
         {
-            transform.position = new Vector3(-39f, topGround, 0);
+            transform.position = new Vector3(-37f, topGround, 0);
 
-        }else if (playerpositionX < -39f && playerpositionY > 1f)
+        }else if (playerpositionX < -37f && playerpositionY > 1f)
         {
-            transform.position = new Vector3(39f, bottomGround, 0);
+            transform.position = new Vector3(37f, bottomGround, 0);
 
         }
-        else if (playerpositionX < -39f && playerpositionY < 1f)
+        else if (playerpositionX < -37f && playerpositionY < 1f)
         {
-            transform.position = new Vector3(39f, topGround, 0);
+            transform.position = new Vector3(37f, topGround, 0);
 
         }
 
-        movement = new Vector3(dir * moveSpeed, 0f, 0f);
+        Vector3 movement = new Vector3(movementDir * moveSpeed, 0f, 0f);
         transform.position += movement * Time.deltaTime * moveSpeed;
     }
 }

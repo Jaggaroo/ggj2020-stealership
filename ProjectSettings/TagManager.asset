@@ -8,6 +8,7 @@ TagManager:
   - Character1
   - catman
   - eyeguy
+  - part
   layers:
   - Default
   - TransparentFX
