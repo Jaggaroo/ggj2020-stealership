@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShipPartRegistry
@@ -8,6 +9,11 @@ public class ShipPartRegistry
     public string[] eyeShipPartsNames = new string[] {"BrokenBlackShip", "BlackRocket"};
     public string[] commonPartsNames = new string[] {"Antenna", "Window"};
     public string[] solePartsNames = new string[] {"Energycore"};
+
+    private Dictionary<string, string[]> combinatoins = new Dictionary<string, string[]>(){
+        {"BrokenWhiteShip", new string[] {"WhiteRockets", "Antenna", "Window", "Energycore"} },
+        {"BrokenBlackShip", new string[] {"BlackRocket", "Antenna", "Window", "Energycore"} }
+    };
 
     public Object[] catShipParts = new Object[] {};
     public Object[] eyeShipParts = new Object[] {};
@@ -46,6 +52,8 @@ public class ShipPartRegistry
 
    void SpawnPart(GameObject prefab)
     {
+        Debug.Log("Spawning " + prefab.name);
+
         Vector3 bounds = prefab.GetComponentInChildren<MeshRenderer>().bounds.size;
 
         float prefabWidth = bounds.x;
@@ -58,12 +66,30 @@ public class ShipPartRegistry
 
         GameObject inst = GameObject.Instantiate(prefab, pos, Quaternion.identity);
         inst.tag = "part";
+        SetCombinations(prefab.name, inst);
+
         Rigidbody2D rb = inst.GetComponent<Rigidbody2D>();
         float tDir = Mathf.Ceil(Random.Range(0, 1)) * 2 - 1;
 
         // objInsts = objInsts.Concat(new GameObject[] { inst }).ToArray();
 
         rb.AddTorque(tDir * Random.Range(500, 1500));
+    }
+
+    void SetCombinations(string name, GameObject instance) {
+        string[] canCombineWith = new string[]{};
+        string[] combineToSelf;
+        
+        if (combinatoins.TryGetValue(name, out combineToSelf)) {
+            canCombineWith = combineToSelf.Concat(combineToSelf).ToArray();
+        }
+        foreach (var entry in combinatoins) {
+            if (new List<string>(entry.Value).Contains(name)) {
+                canCombineWith = canCombineWith.Concat(new string[]{entry.Key}).ToArray();
+            }
+        }
+
+        Debug.Log("Coms1 " + name + " " + canCombineWith.Length);
     }
 }
 
