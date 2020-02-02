@@ -89,7 +89,12 @@ public class ShipPartRegistry
             }
         }
 
-        Debug.Log("Coms1 " + name + " " + canCombineWith.Length);
+        Combinable combinable = instance.GetComponent<Combinable>();
+        combinable.prefabName = name;
+        combinable.inst = instance;
+        combinable.canBeCombinedWith = canCombineWith.ToArray();
+
+        // Debug.Log("Coms1 " + name + " " + canCombineWith.Length);
     }
 }
 

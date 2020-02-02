@@ -24,7 +24,7 @@ public class charMove : MonoBehaviour
 
     private GameObject pickedUpObj;
     private GameObject lastPickedUpObj;
-    private bool pickupButton;
+    private bool pickupButton = false;
     private float nextPickDropUpTime;
     private bool canPickUp = true;
     private bool canDrop = false;
@@ -50,6 +50,13 @@ public class charMove : MonoBehaviour
         Move();
         DragPickedObj();
         DropPickedObj();
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        Combinable combinable = collision.gameObject.GetComponent<Combinable>();
+        if (combinable && pickedUpObj) {
+            combinable.TryCombine(pickedUpObj);
+        }
     }
 
     void OnCollisionStay2D(Collision2D collision) {
@@ -98,16 +105,20 @@ public class charMove : MonoBehaviour
 
     void DropPickedObj() {
         if (pickedUpObj != null) {
-            if ((pickupButton && canDrop) || pickedUpObj.GetComponent<Combinable>().IsCombined()) {
+            bool isCombined = pickedUpObj.GetComponent<Combinable>().IsCombined();
+            if ((pickupButton && canDrop) || isCombined) {
                 pickupButton = false;
                 lastPickedUpObj = pickedUpObj;
 
-                Debug.Log("Drop");
+                Debug.Log("Drop " + isCombined);
+
                 GameObject toThrow = pickedUpObj;
 
-                Rigidbody2D rb = toThrow.GetComponent<Rigidbody2D>();
-                float throwDir = Mathf.Sign(movementDir) * -1;
-                rb.AddForce(new Vector2(Random.Range(0, throwForceX) * throwDir, throwForceY), ForceMode2D.Impulse);
+                if (!isCombined) {
+                    Rigidbody2D rb = toThrow.GetComponent<Rigidbody2D>();
+                    float throwDir = Mathf.Sign(movementDir) * -1;
+                    rb.AddForce(new Vector2(Random.Range(0, throwForceX) * throwDir, throwForceY), ForceMode2D.Impulse);
+                }
 
                 pickedUpObj = null;
                 
@@ -115,6 +126,7 @@ public class charMove : MonoBehaviour
                 pCol.enabled = true;
 
                 canDrop = false;
+                canPickUp = true;
             }
         }
     }
