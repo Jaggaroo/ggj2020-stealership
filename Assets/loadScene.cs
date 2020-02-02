@@ -38,9 +38,12 @@ public class loadScene : MonoBehaviour
 
     void SpawnPart(GameObject prefab, float minX, float maxX)
     {
-        Vector3 bounds = prefab.GetComponent<Renderer>().bounds.size;
+        Vector3 bounds = prefab.GetComponentInChildren<MeshRenderer>().bounds.size;
+
         float prefabWidth = bounds.x;
         float prefabHeight = bounds.y;
+
+        Debug.Log("Prefab size " + prefabWidth + " " + prefabHeight);
 
         float x = Random.Range(minX + prefabWidth, maxX - prefabWidth);
         float y = levelsTopPos[Mathf.RoundToInt(Random.Range(0f, 1f))] - prefabHeight;

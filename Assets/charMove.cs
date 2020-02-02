@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class charMove : MonoBehaviour
 {
+    public float timeBetweenPickUpDrop = 0.25f;
     public float throwForceY = 7;
     public float throwForceX = 3;
 
@@ -24,10 +25,13 @@ public class charMove : MonoBehaviour
     private GameObject pickedUpObj;
     private GameObject lastPickedUpObj;
     private bool pickupButton;
+    private float nextPickDropUpTime;
     private bool canPickUp = true;
+    private bool canDrop = false;
 
     void Start()
     {
+        nextPickDropUpTime = Time.time + timeBetweenPickUpDrop;
 
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
         screenOrigo = Camera.main.ScreenToWorldPoint(Vector2.zero);
@@ -41,7 +45,7 @@ public class charMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pickupButton = Input.GetButton("Fire1");
+        RegisterPickDrop();
 
         Move();
         DragPickedObj();
@@ -53,9 +57,17 @@ public class charMove : MonoBehaviour
     }
 
     void OnCollisionExit2D(Collision2D collision) {
-        if (collision.gameObject == lastPickedUpObj) {
+        if (pickedUpObj == null && collision.gameObject == lastPickedUpObj) {
             canPickUp = true;
             Debug.Log("Can pick up");
+        }
+    }
+
+    void RegisterPickDrop() {
+        if (Time.time >= nextPickDropUpTime && Input.GetButton("Fire1")) {
+            pickupButton = true;
+            Debug.Log("Space press registered");
+            nextPickDropUpTime = Time.time + timeBetweenPickUpDrop;
         }
     }
 
@@ -70,6 +82,8 @@ public class charMove : MonoBehaviour
             Collider2D pCol = pickedUpObj.GetComponent<Collider2D>();
             pCol.enabled = false;
             pickedUpObj.transform.position += new Vector3(0, 2, 0);
+
+            canDrop = true;
         }
     }
 
@@ -84,7 +98,7 @@ public class charMove : MonoBehaviour
 
     void DropPickedObj() {
         if (pickedUpObj != null) {
-            if (pickupButton) {
+            if (pickupButton && canDrop) {
                 pickupButton = false;
                 lastPickedUpObj = pickedUpObj;
 
@@ -99,6 +113,8 @@ public class charMove : MonoBehaviour
                 
                 Collider2D pCol = toThrow.GetComponent<Collider2D>();
                 pCol.enabled = true;
+
+                canDrop = false;
             }
         }
     }
